@@ -29,7 +29,7 @@ app.get('/', async function(req,res) {
 app.post('/submitdat', function(req,res){
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
     console.log("IP : " ,ip);
-    console.log(req.body.a);
+    console.log(req.body);
     pool.query('insert into logs(so,ipv6addr) values($1,$2)',[req.body.a,ip]);
     res.status(200).json({
         success : 'Ok'
