@@ -26,20 +26,16 @@ app.get('/', async function(req,res) {
     })
 });
 
-app.post('/submitdat', function(req,res){
+app.get('/submitdat/:os', function(req,res){
     var ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress
     console.log("IP : " ,ip);
-    console.log(req.body);
-    pool.query('insert into logs(so,ipv6addr) values($1,$2)',[req.body.a,ip]);
+    console.log(req.params);
+    pool.query('insert into logs(so,ipv6addr) values($1,$2)',[req.params.os,ip]);
     res.status(200).json({
         success : 'Ok'
     });
 })
-/* /Acroform << /Fields [ << /Type /Annot /T (a) /V 5 0 R >>] >>
-var f = this.collection.getField("a");
-                                    f.name = "DIMELOMA";
-                                    var aSubmitFields = new Array(f);
- */
+
 
 app.listen(port, ()=> {
     
